@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('task/desc/{tech_id}/{task_idd}','getController@taskDesc');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
