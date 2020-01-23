@@ -13,12 +13,12 @@ class getController extends Controller
         $array = DB::table('task')->select('task_id','subcategory_id','status','created_at')
             ->where('tech_id', '=', $tech_idd)
             ->get();
-            return response()->json($json);
+            return response()->json($array);
     }
 
     public function taskDesc(Request $request,$tech_id,$task_idd){
 
-        $info = DB::table('task')->select('desc', 'status','created_at')
+        $info = DB::table('task')->select('desc', 'status','created_at','updated_at')
             ->where('task_id', '=', $task_idd)
             ->get();
 
@@ -35,6 +35,6 @@ class getController extends Controller
         $json = json_decode( $info );
         $json[0]->cat_name= $cat_name;
 
-        return response()->json($array);
+        return response()->json($json);
     }
 }

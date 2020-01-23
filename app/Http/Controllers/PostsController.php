@@ -65,15 +65,11 @@ class PostsController extends Controller
                     $minTaskEid = $item->tech_id;
                 }
             }
-
-            // $techid = $minTaskEid;
             $techid=$minTaskEid;
 
         } else {
             $techid = $unassigned_tech[0];
         }
-
-
 
         // Create a new Task
         $task = new Task();
