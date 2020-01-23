@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('task_id');
             $table->integer('subcategory_id');
             $table->mediumText('desc');
-            $table->enum('status', array('pending', 'completed'));
+            $table->enum('status', array('assigned', 'start', 'completed'));
             $table->integer('tech_id');
             $table->foreign('subcategory_id')->references('subcategory_id')->on('subcategory')->onDelete('cascade');
             $table->foreign('tech_id')->references('tech_id')->on('technician')->onDelete('cascade');
