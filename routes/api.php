@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::put('/update/{task_idd}', 'putController@updateStatus');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
