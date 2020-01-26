@@ -18,22 +18,28 @@ class getController extends Controller
 
     public function taskDesc(Request $request,$tech_id,$task_idd){
 
-        $info = DB::table('task')->select('desc', 'status','created_at','updated_at')
+        $info = DB::table('task')->select('desc', 'status','created_at','updated_at','subcategory_id')
             ->where('task_id', '=', $task_idd)
             ->get();
 
-        $cat_idd = DB::table('task')->select('subcategory_id')
-            ->where('task_id', '=', $task_idd)
-            ->get();
+//        $cat_idd = $info[0]-> DB::table('task')->select('subcategory_id')
+//            ->where('task_id', '=', $task_idd)
+//            ->get();
 
         $cat_name_obj= DB::table('subcategory')->select('subcategory_name')
-            ->where('subcategory_id', '=', strval($cat_idd[0]->subcategory_id) )
+            ->where('subcategory_id', '=', strval($info[0]->subcategory_id) )
+            ->get();
+
+        $tech_nm= DB::table('technician')->select('tech_name')
+            ->where('tech_id', '=',$tech_id )
             ->get();
 
         $cat_name= strval($cat_name_obj[0]->subcategory_name);
+        $tech_name= strval($tech_nm[0]->tech_name);
 
         $json = json_decode( $info );
         $json[0]->cat_name= $cat_name;
+        $json[0]->tech_name= $tech_name;
 
         return response()->json($json);
     }
