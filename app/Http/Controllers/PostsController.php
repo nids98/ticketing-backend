@@ -20,7 +20,7 @@ class PostsController extends Controller
 
         // Get all technicians who are assigned some task
         $all_assigned_tech_id = Task::where('subcategory_id', $subcategory_id)->whereNotIn('status', ['completed'])->get();
-        
+
         $all_tech=[];
         $assigned_tech=[];
 
@@ -42,9 +42,7 @@ class PostsController extends Controller
             }
         }
 
-        $techid = 0;
-
-        $minTaskEid = -1;
+        $techid = -1;
 
         if(empty($unassigned_tech)) {
             // Check task table
@@ -52,13 +50,14 @@ class PostsController extends Controller
             $emptask_count =  DB::table('task')
             ->select(DB::raw('tech_id, count(*) as numTasks'))
             ->groupBy('tech_id')
-            ->whereNotIn('status', ['completed'])
+            ->whereNotIn('status', ['completed'])->where('subcategory_id', $subcategory_id)
             ->get();
 
 
             //Get the employee id who has the minimum number of tasks
             $minTask = 100000000;
-            
+            $minTaskEid = -1;
+
             foreach ($emptask_count as $item) {
                 if($item->numTasks < $minTask) {
                     $minTask = $item->numTasks;
