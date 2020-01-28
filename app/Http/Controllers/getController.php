@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\Input;
 class getController extends Controller
 {
 
-
     public function getList(Request $request) {
 
         $tech_idd = $request->input('tech_id');
