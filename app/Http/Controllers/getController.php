@@ -9,9 +9,15 @@ use Symfony\Component\Console\Input\Input;
 class getController extends Controller
 {
 
+
     public function getList(Request $request) {
 
         $tech_idd = $request->input('tech_id');
+
+        $header = $request->header('x-auth-token');
+        if($header != 'nidhi') {
+            return response()->json(["error"=> "Not authorized"]);
+        }
 
         $array = DB::table('task')->select('task_id','subcategory_id','status','created_at')
             ->where('tech_id', '=', $tech_idd)
