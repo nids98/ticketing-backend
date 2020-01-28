@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/task/create', 'PostsController@submit');
-Route::get('/task/{tech_idd}', 'getController@getList');
-Route::get('task/desc/{tech_id}/{task_idd}','getController@taskDesc');
-Route::put('/update/{task_idd}', 'putController@updateStatus');
+Route::post('/task', 'PostsController@submit');
+Route::get('/task', 'getController@getList');
+Route::get('/task/{task_idd}','getController@taskDesc');
+Route::put('/task/{task_idd}', 'putController@updateStatus');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

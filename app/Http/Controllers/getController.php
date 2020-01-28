@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class getController extends Controller
 {
 
-    public function getList(Request $request,$tech_idd) {
+    public function getList(Request $request) {
+
+        $tech_idd = $request->input('tech_id');
 
         $array = DB::table('task')->select('task_id','subcategory_id','status','created_at')
             ->where('tech_id', '=', $tech_idd)
@@ -16,11 +19,13 @@ class getController extends Controller
             return response()->json($array);
     }
 
-    public function taskDesc(Request $request,$tech_id,$task_idd){
+    public function taskDesc(Request $request,$task_idd){
 
-        $info = DB::table('task')->select('desc', 'status','created_at','updated_at','subcategory_id')
+        $info = DB::table('task')->select('desc', 'status','created_at','updated_at','subcategory_id','tech_id')
             ->where('task_id', '=', $task_idd)
             ->get();
+
+        $tech_id=$info[0]->tech_id;
 
 //        $cat_idd = $info[0]-> DB::table('task')->select('subcategory_id')
 //            ->where('task_id', '=', $task_idd)
